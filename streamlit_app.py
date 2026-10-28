@@ -19,7 +19,7 @@ from support_rag import LLMBackendError, SupportRAG, LLM_BACKEND  # noqa: E402
 MAX_QUESTION_LENGTH = 1000
 
 
-@st.cache_resource(show_spinner="Loading FAQ and embedding model (first run takes a minute)...")
+@st.cache_resource(show_spinner="Loading support FAQ...")
 def load_rag() -> SupportRAG:
     # Built once per server process, not on every rerun.
     return SupportRAG()
@@ -27,12 +27,6 @@ def load_rag() -> SupportRAG:
 
 st.title("💬 Customer Support Assistant")
 st.caption(f"Answers come only from the support FAQ · backend: `{LLM_BACKEND}`")
-
-if LLM_BACKEND == "ollama" and os.getenv("STREAMLIT_RUNTIME_ENV") != "local":
-    st.info(
-        "Backend is set to Ollama. That only works if Ollama is running on the "
-        "same machine. For a hosted deployment set `LLM_BACKEND = \"cloud\"` in Secrets."
-    )
 
 rag = load_rag()
 

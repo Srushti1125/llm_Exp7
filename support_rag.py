@@ -9,29 +9,24 @@ from typing import List, TypedDict
 
 import requests
 from dotenv import load_dotenv
-from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langgraph.graph import END, START, StateGraph
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 load_dotenv()
 logger = logging.getLogger("support_rag")
 
 # Configuration (from environment / .env) 
-LLM_BACKEND = os.getenv("LLM_BACKEND", "ollama").lower()  
-
-OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:0.5b")
-
-CLOUD_BASE_URL = os.getenv("CLOUD_BASE_URL", "https://router.huggingface.co/v1")
-CLOUD_MODEL = os.getenv("CLOUD_MODEL", "")
-CLOUD_API_KEY = os.getenv("CLOUD_API_KEY", "")
+LLM_BACKEND = "groq"
+GROQ_BASE_URL = "https://api.groq.com/openai/v1"
+GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 
 FAQ_PATH = os.getenv("FAQ_PATH", "support_faq.txt")
 LLM_TIMEOUT = int(os.getenv("LLM_TIMEOUT", "60"))
-# FAISS L2 distance: lower = more similar. Chunks farther than this are ignored.
-MAX_DISTANCE = float(os.getenv("MAX_DISTANCE", "1.2"))
+# Minimum local TF-IDF cosine similarity required to use an FAQ chunk.
+MIN_SIMILARITY = float(os.getenv("MIN_SIMILARITY", "0.03"))
 
 INSUFFICIENT = "INSUFFICIENT_CONTEXT"
 FALLBACK_MESSAGE = (
@@ -41,47 +36,34 @@ FALLBACK_MESSAGE = (
 )
 
 class LLMBackendError(Exception):
-    """Raised when the model backend (Ollama / cloud API) fails."""
+    """Raised when the Groq API request fails."""
 
 # LLM backend
 def generate(prompt: str) -> str:
     """Send a prompt to the chosen backend and return the text."""
     try:
-        if LLM_BACKEND == "ollama":
-            resp = requests.post(
-                f"{OLLAMA_URL}/api/chat",
-                json={
-                    "model": OLLAMA_MODEL,
-                    "messages": [{"role": "user", "content": prompt}],
-                    "stream": False,
-                    "options": {"temperature": 0, "num_predict": 160},
-                },
-                timeout=LLM_TIMEOUT,
-            )
-            resp.raise_for_status()
-            return resp.json()["message"]["content"].strip()
-
-        if LLM_BACKEND == "cloud":
-            if not CLOUD_API_KEY or not CLOUD_MODEL:
-                raise LLMBackendError("Cloud backend not configured")
-            resp = requests.post(
-                f"{CLOUD_BASE_URL}/chat/completions",
-                headers={"Authorization": f"Bearer {CLOUD_API_KEY}"},
-                json={
-                    "model": CLOUD_MODEL,
-                    "messages": [{"role": "user", "content": prompt}],
-                    "temperature": 0,
-                    "max_tokens": 160,
-                },
-                timeout=LLM_TIMEOUT,
-            )
-            resp.raise_for_status()
-            return resp.json()["choices"][0]["message"]["content"].strip()
-
-        raise LLMBackendError(f"Unknown LLM_BACKEND '{LLM_BACKEND}'")
+        if not GROQ_API_KEY:
+            raise LLMBackendError("Groq backend not configured")
+        resp = requests.post(
+            f"{GROQ_BASE_URL}/chat/completions",
+            headers={"Authorization": f"Bearer {GROQ_API_KEY}"},
+            json={
+                "model": GROQ_MODEL,
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0,
+                "max_tokens": 160,
+            },
+            timeout=LLM_TIMEOUT,
+        )
+        resp.raise_for_status()
+        return resp.json()["choices"][0]["message"]["content"].strip()
 
     except LLMBackendError:
         raise
+    except requests.HTTPError as exc:
+        status = exc.response.status_code if exc.response is not None else "unknown"
+        logger.error("LLM backend call failed: HTTP %s", status)
+        raise LLMBackendError("LLM backend call failed") from exc
     except (requests.RequestException, KeyError, ValueError) as exc:
         # Log only the exception type - never headers/keys.
         logger.error("LLM backend call failed: %s", type(exc).__name__)
@@ -112,11 +94,10 @@ class SupportRAG:
         self.chunks = splitter.split_documents([doc])
         logger.info("Created %d chunks", len(self.chunks))
 
-        logger.info("Loading embedding model (first run downloads it)...")
-        embeddings = HuggingFaceEmbeddings(
-            model_name="sentence-transformers/all-MiniLM-L6-v2"
+        self.vectorizer = TfidfVectorizer(stop_words="english", ngram_range=(1, 2))
+        self.chunk_vectors = self.vectorizer.fit_transform(
+            chunk.page_content for chunk in self.chunks
         )
-        self.vector_store = FAISS.from_documents(self.chunks, embeddings)
         self.graph = self._build_graph()
         logger.info("RAG pipeline ready (backend=%s)", LLM_BACKEND)
 
@@ -142,11 +123,12 @@ class SupportRAG:
         }
 
     def _retrieve(self, state: SupportState):
-        results = self.vector_store.similarity_search_with_score(
-            state["search_query"], k=3
-        )
-        logger.info("Retrieval distances: %s", [round(float(s), 3) for _, s in results])
-        kept = [d for d, s in results if s <= MAX_DISTANCE]
+        query_vector = self.vectorizer.transform([state["search_query"]])
+        scores = (self.chunk_vectors @ query_vector.T).toarray().ravel()
+        top_indices = scores.argsort()[::-1][:3]
+        results = [(self.chunks[i], float(scores[i])) for i in top_indices]
+        logger.info("Retrieval similarities: %s", [round(score, 3) for _, score in results])
+        kept = [doc for doc, score in results if score >= MIN_SIMILARITY]
         return {
             "context": "\n\n".join(d.page_content for d in kept),
             "sources": [d.metadata.get("source", "unknown") for d in kept],
@@ -246,4 +228,4 @@ ANSWER:"""
         }
 
     def health(self) -> bool:
-        return self.vector_store is not None
+        return bool(self.chunks and self.chunk_vectors.shape[0])
