@@ -1,0 +1,117 @@
+Order Tracking
+Order Tracking - Finding tracking updates. Customers can view shipment updates in the Orders section of their account. A tracking link is shown after an order is dispatched.
+
+Order Tracking - Tracking not updating. If tracking has not updated for 48 hours, contact support with the order reference.
+
+Order Tracking - Live order status. The assistant cannot access live order status. To check where an order is, open the Orders section of your account or use the tracking link sent after dispatch.
+
+Order Tracking - Order reference. The order reference is shown in the order confirmation email and at the top of each order in the Orders section. Keep it ready when you contact support.
+
+Order Tracking - Dispatch time. Orders are usually dispatched within 1 to 2 business days after payment is confirmed. A tracking link appears in the Orders section once the order is dispatched.
+
+Order Tracking - Delivery estimates. The estimated delivery date is shown at checkout and in the Orders section. Standard delivery usually takes 3 to 7 business days and express delivery 1 to 3 business days. Delivery dates are estimates, not guarantees.
+
+Order Tracking - Missed delivery. If a delivery attempt fails, the courier usually leaves a notice and tries again. After repeated failed attempts the parcel may be returned to the warehouse. Contact support with the order reference if this happens.
+
+Order Tracking - Marked delivered but not received. If tracking says delivered but you have not received the parcel, check with neighbours and any safe place, wait 24 hours, then contact support with the order reference.
+
+Order Tracking - Changing the delivery address. The delivery address can only be changed before the order is dispatched. Contact support as soon as possible with the order reference. After dispatch the address cannot be changed.
+
+Order Tracking - Cancelling an order. An order can be cancelled before dispatch from the Orders section by selecting Cancel Order. After dispatch an order cannot be cancelled; once it is delivered you may request a return if it is eligible.
+
+Returns and Refunds
+Returns and Refunds - Return window. Unused items in their original packaging may be requested for return within 14 days of delivery. Some items may be excluded.
+
+Returns and Refunds - Non-returnable items. Some items may be excluded from returns, such as personalised items, perishable goods, gift cards, and items marked non-returnable on the product page.
+
+Returns and Refunds - Starting a return. To start a return, open Orders, choose the item, and select Return Request. Follow the on-screen steps to give a reason and receive return instructions.
+
+Returns and Refunds - Return shipping. After a return request is approved, return instructions are shown in the Orders section. Any return shipping fee is displayed in the Return Request before you confirm it.
+
+Returns and Refunds - Refund timing. After an approved return is received, a refund is usually processed to the original payment method within 5 to 7 business days. Your bank may take additional days to show the amount.
+
+Returns and Refunds - Refund approval. The assistant cannot approve a refund. Refund decisions are made by the returns team after the returned item is received and checked.
+
+Returns and Refunds - Refund method. Refunds are issued to the original payment method. The assistant cannot send a refund to a different card or account.
+
+Returns and Refunds - Refund not received. If more than 7 business days have passed since your approved return was received and the refund has not arrived, contact support with the order reference and return request details.
+
+Returns and Refunds - Exchanges. Items are not exchanged directly. To exchange an item, request a return for the original item using Return Request and place a new order for the item you want.
+
+Returns and Refunds - Returning after the window. Return requests made more than 14 days after delivery are generally not accepted. Items must also be unused and in their original packaging.
+
+Returns and Refunds - Returning part of an order. For orders with several items, each item can be returned separately. Choose only the items you want to return when you select Return Request.
+
+Returns and Refunds - Damaged or wrong item. If an item arrives damaged or is not the item you ordered, contact support within 7 days of delivery with the order reference and clear photos. The returns team will review the request.
+
+Returns and Refunds - Return status. You can check the status of a return in the Orders section under Return Request. The status updates when the return is approved and when the item is received.
+
+Account Access
+Account Access - Cannot sign in. If you cannot sign in, use the Forgot Password option on the sign-in page. Check your email for the password reset link.
+
+Account Access - Reset email not arriving. If the password reset email does not arrive, check the spam folder and confirm that you entered the registered email address.
+
+Account Access - Reset link expired. Password reset links expire after a short time. If the link no longer works, return to the sign-in page and request a new one using Forgot Password.
+
+Account Access - Never share your credentials. Never share your password or one-time verification code. Support staff and the assistant will never ask for them.
+
+Account Access - Password lookup. Neither support staff nor the assistant can see or tell you your password. If you have forgotten it, use the Forgot Password option on the sign-in page to set a new one.
+
+Account Access - Verification code not arriving. If a one-time verification code does not arrive, wait a minute, check your phone signal or inbox, and then request a new code. Avoid requesting many codes in a row.
+
+Account Access - Locked account. After several failed sign-in attempts an account may be temporarily locked for security. Wait a while and then use Forgot Password to sign in again.
+
+Account Access - Changing your password. To change your password while signed in, open Account Settings and choose Security. Pick a strong password that you do not use on other sites.
+
+Account Access - Changing your registered email. To update your registered email address, open Account Settings and choose Profile. You will be asked to verify the new address.
+
+Account Access - Suspicious account activity. If you notice activity you do not recognise, change your password immediately and contact support through the Help section.
+
+Billing and Payments
+Billing and Payments - Payment status. Payment status is shown in the order details.
+
+Billing and Payments - Charged twice. If a payment appears to have been charged twice, do not submit repeated payments. Contact the billing support team with the transaction date and order reference.
+
+Billing and Payments - Card details security. Do not share full card numbers or security codes with the assistant or by email. Only the transaction date and order reference are needed for billing queries.
+
+Billing and Payments - Pending payment hold. A pending charge may be a temporary authorisation hold placed by your bank. It is usually released automatically if the order is not completed.
+
+Billing and Payments - Payment failed. If a payment fails, check the card details and available balance, then try another payment method shown at checkout. Avoid submitting the same payment repeatedly.
+
+Billing and Payments - Payment methods. Major credit and debit cards and the other payment methods shown at checkout are accepted. Available methods may vary by order.
+
+Billing and Payments - Invoices. An invoice can be downloaded from the order details page once the order has been dispatched.
+
+Billing and Payments - Promo codes. Enter a promo code at checkout. Only one promo code can be used per order, and a code cannot be added after the order has been placed.
+
+Billing and Payments - Unrecognised charge. If you see a charge you do not recognise, contact the billing support team with the transaction date, the amount, and the order reference if you have one.
+
+Technical Support
+Technical Support - Website not loading. If the website is not loading, refresh the page, check your internet connection, and try an updated browser.
+
+Technical Support - Problem continues. If the problem continues, clear the browser cache or try a private window.
+
+Technical Support - Supported browsers. The website works best on the latest versions of Chrome, Firefox, Safari, and Edge. Cookies and JavaScript must be enabled.
+
+Technical Support - Error at checkout. If an error appears at checkout, do not repeat the payment straight away. Check the Orders section first to see whether the order was placed, to avoid duplicate orders and charges.
+
+Technical Support - Page layout problems. If images or buttons look broken, do a hard refresh, disable browser extensions such as ad blockers, or try another browser.
+
+Technical Support - Slow website. If the website is slow, check your internet connection, close unused tabs, and try again after a few minutes.
+
+Technical Support - Uploading return photos. If photo uploads fail, use a JPG or PNG image under 5 MB and make sure your browser is up to date.
+
+Technical Support - Reporting a technical problem. When contacting support, describe the error message and the steps that led to it. Do not share passwords or verification codes.
+
+Contact Support
+Contact Support - Issues not covered. For an issue that is not covered by these FAQs, contact the support team through the Help section of the website.
+
+Contact Support - What to include. Include a brief description and relevant order reference, but do not send passwords, one-time codes, or full payment-card details.
+
+Contact Support - Response time. Messages are answered in the order they are received. A first response is usually sent within 1 to 2 business days.
+
+Contact Support - What the assistant cannot do. The assistant answers only from these FAQs. It cannot access live order status, approve refunds, change or cancel orders, or view your personal account data.
+
+Contact Support - Complaints and feedback. To make a complaint or share feedback about an order or service, use the Help section of the website and include the order reference.
+
+Contact Support - Scam awareness. Official support will never ask for your password, one-time code, or full card details. Be careful with messages that ask for them and contact support through the Help section.

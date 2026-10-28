@@ -1,0 +1,10 @@
+# Virtual environments - never commit these
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Secrets - never commit these
+.env
+env
+.streamlit/secrets.toml

@@ -1,0 +1,13 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+streamlit
+torch
+python-dotenv
+requests
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-huggingface
+langgraph
+faiss-cpu
+sentence-transformers
